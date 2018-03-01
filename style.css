@@ -1,0 +1,105 @@
+#edit-with-js-bin {
+   /*display: none !important;*/
+   transform: translatex(-100px);
+   opacity: 0.4;
+}
+
+body {
+   background: #484848;
+}
+.bigText {
+   font-family: sans-serif;
+   color: white;
+   font-size: 1.3em;
+   letter-spacing: 1px;
+   font-weight: bolder;
+}
+a {
+   color: lightblue;
+}
+.help {
+   text-align: right;
+   float: right;
+}
+h3 {
+   font-family: sans-serif;
+   color: white;
+   font-weight: bolder;
+   margin: 6px;
+   margin-bottom: 0px;
+   letter-spacing: 0.5px;
+}
+#inputHeader,
+#outputHeader,
+#debugHeader {
+   flex: 1;
+}
+#debugHeader {
+   display: none;
+}
+#debugOutput {
+   display: none;
+}
+.container {
+   width: 100%;
+   position: relative;
+   display: flex;
+   flex-flow: row wrap;
+}
+.container pre,
+textarea {
+   flex: 1;
+   min-height: 175px;
+   background: #202020;
+   color: white;
+   border: #202020;
+   margin: 6px;
+   font: monospace;
+   resize: vertical;
+   min-width: 1px;
+}
+.container pre[contentEditable=false] {
+   cursor: not-allowed;
+}
+#lab {
+   width: 100%;
+   min-height: 200px;
+}
+#pointerOverlay {
+   width: 100%;
+   position: absolute;
+   background: rgba(0, 0, 0, 0);
+   /*width: 100%;*/
+
+   resize: vertical;
+   height: 200px;
+   pointer-events: none;
+   color: rgba(255, 0, 0, 0.7);
+   left: 0px;
+}
+button:not(.run) {
+   vertical-align: top;
+   border: #303030;
+   color: white;
+   font-weight: bold;
+   font-size: 1em;
+   letter-spacing: 1px;
+   background: #303030;
+   cursor: pointer;
+   min-width: 150px;
+   min-height: 50px;
+   margin: 5px;
+   line-height: 50px;
+}
+button:not(.run):hover {
+   background: #202020;
+}
+button:not(.run)[disabled] {
+   background: #404040;
+   cursor: not-allowed;
+}
+.buttonImg {
+   width: 40px;
+   vertical-align: middle;
+   transform: translateX(-10px);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copy of my code from JSBin
+http://jsbin.com/cuzoxu/edit?html,css,js
+
+-->
+
+<head>
+   <meta charset="utf-8">
+   <title>Labyrinth</title>
+   
+   <link rel="stylesheet" type="text/css" href="style.css">
+   <script src="script.js"></script>
+</head>
+
+<body onload="reset();">
+
+   <span class="bigText help">
+         [<a href="https://github.com/m-ender/labyrinth" >Help</a>]
+   </span>
+
+   <button onclick="stopDebug(); run();">
+      <img src="http://i.imgur.com/XvHQHX9.png" class="buttonImg"> Run
+   </button>
+
+   <button id="debugButton" onclick="toggleDebug();">
+      <img src="http://i.imgur.com/Th4Kyvd.png" class="buttonImg">
+      <span id="debugButtonText">Debug</span>
+   </button>
+
+   <button id="stepButton" onclick="updatePointer();" disabled>
+      Step: <span id="stepDiv">1</span>
+   </button>
+
+
+
+   <h3>Maze:</h3>
+   <div class="container">
+      <pre id="pointerOverlay"></pre>
+      <pre id="lab" contentEditable="true">,)@
+.(</pre>
+      <div style="width:100%;"></div>
+
+      <h3 id="inputHeader">Input:</h3>
+      <h3 id="outputHeader">Output:</h3>
+      <h3 id="debugHeader">Debugging:</h3>
+      <div style="width:100%"></div>
+
+      <textarea id="input">Labyrinth rocks!</textarea>
+      <textarea id="output"></textarea>
+      <textarea id="debugOutput"></textarea>
+   </div>
+
+</body>
+
+</html>
