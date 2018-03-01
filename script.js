@@ -10,6 +10,8 @@
 //Save option 
 //a => ASCII code
 
+if(localStorage["code"] !== undefined) lab.innerHTML = localStorage["code"];
+
 var p; //pointer
 var labyrinth; //code
 var main, auxiliary; //stacks, main.length-1=top
@@ -129,7 +131,9 @@ function reset() {
 
 function run() {
    reset();
-
+   localStorage["code"] = lab.innerHTML;
+   
+   
    lab.contentEditable = false;
    if (debug) {
       showDebugOutput();
@@ -526,7 +530,6 @@ function stopDebug() {
    updatePointer();
 }
 
-
 //Maze proper copy
 lab.addEventListener("paste", function(e) {
    // cancel paste
@@ -537,5 +540,8 @@ lab.addEventListener("paste", function(e) {
 
 
    lab.innerHTML += text;
+});
 
+lab.addEventListener("input", function(e) {
+	localStorage["code"] = lab.innerHTML;
 });
