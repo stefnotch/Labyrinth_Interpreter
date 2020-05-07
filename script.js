@@ -3,8 +3,6 @@
 
 //Note labyrinth X Y are swapped!
 //Syntax highlighting?
-//Bigint library!
-//https://github.com/peterolson/BigInteger.js
 
 //Use: https://developers.google.com/web/updates/2014/05/Web-Animations-element.animate-is-now-in-Chrome-36
 //Save option 
@@ -277,15 +275,15 @@ function updateDirection() {
 
 
    if (numOfPaths == 4) {
-      if (main.top() < 0) {
+      if (main.top() < 0n) {
          direction -= 1;
-      } else if (main.top() > 0) {
+      } else if (main.top() > 0n) {
          direction += 1;
       }
    } else if (numOfPaths == 3) {
-      if (main.top() < 0) {
+      if (main.top() < 0n) {
          direction -= 1;
-      } else if (main.top() > 0) {
+      } else if (main.top() > 0n) {
          direction += 1;
       }
       if (isWall(direction)) {
@@ -295,9 +293,9 @@ function updateDirection() {
       if (isWall(direction + 2)) {
          if (isWall(direction)) {
             //Special case
-            if (main.top() < 0) {
+            if (main.top() < 0n) {
                direction -= 1;
-            } else if (main.top() > 0) {
+            } else if (main.top() > 0n) {
                direction += 1;
             } else {
                direction += Math.random() < 0.5 ? -1 : 1;
@@ -335,7 +333,7 @@ function execChar(char) {
    var a;
    var b;
    if (/\d/.exec(char)) {
-      main.push(main.pop() * 10 + (+char));
+      main.push(main.pop() * 10n + BigInt(char));
    } else switch (char) {
       case '!':
          output.value += main.pop();
@@ -360,10 +358,10 @@ function execChar(char) {
          //Debug-Unimplemented
          break;
       case '(':
-         main.push(main.pop() - 1);
+         main.push(main.pop() - 1n);
          break;
       case ')':
-         main.push(main.pop() + 1);
+         main.push(main.pop() + 1n);
          break;
       case '*':
          main.push(main.pop() * main.pop());
@@ -374,9 +372,9 @@ function execChar(char) {
       case ',':
          a = input.value.charCodeAt(inpLoc);
          if (Number.isNaN(a)) {
-            main.push(-1);
+            main.push(-1n);
          } else {
-            main.push(a);
+            main.push(BigInt(a));
             inpLoc++;
          }
          break;
@@ -386,16 +384,16 @@ function execChar(char) {
          main.push(b - a);
          break;
       case '.':
-         output.value += String.fromCharCode(mod(main.pop(), 256));
+         output.value += String.fromCharCode(mod(main.pop(), 256n));
          break;
       case '/':
          a = main.pop();
          b = main.pop();
-         if (a === 0) {
+         if (a === 0n) {
             stop();
             throw "Stop that";
          }
-         main.push(Math.floor(b / a));
+         main.push(b / a);
          break;
       case ':':
          main.push(main.top());
@@ -421,22 +419,22 @@ function execChar(char) {
          break;
       case '>':
          //MOVE IP
-         b = main.pop();
+         b = main.pop().asIntN(); // TODO: Improve this
          a = mod(p[1] + b, labyrinth.length);
          labyrinth[a].unshift(labyrinth[a].pop());
          updateGrid();
-         if (b === 0) {
+         if (b === 0n) {
             p[0] = mod(p[0] + 1, labyrinth[a].length);
          }
          break;
       case '?':
          try {
             a = input.value.substr(inpLoc);
-            b = (+(/[\+-]?\d+/.exec(a)[0]));
+            b = BigInt(/[\+-]?\d+/.exec(a)[0]);
             main.push(b);
             inpLoc += a.search(/[\+-]?\d+/) + (b + "").length;
          } catch (e) {
-            main.push(0);
+            main.push(0n);
             inpLoc = input.value.length;
          }
          break;
@@ -447,28 +445,28 @@ function execChar(char) {
          output.value += "\n";
          break;
       case '^': //Fix!
-         b = main.pop();
+         b = main.pop().asIntN(); // TODO: Improve this
          labyrinth = transpose(labyrinth);
          a = mod(p[0] + b, labyrinth[p[1]].length);
          labyrinth[a].unshift(labyrinth[a].pop());
-         if (b === 0) {
+         if (b === 0n) {
             p[1] = mod(p[1] - 1, labyrinth.length);
          }
          labyrinth = transpose(labyrinth);
          updateGrid();
          break;
       case '_':
-         main.push(0);
+         main.push(0n);
          break;
       case '`':
          main.push(-main.pop());
          break;
       case 'v': //Fix!
-         b = main.pop();
+         b = main.pop().asIntN(); // TODO: Improve this
          a = mod(p[0] + b, labyrinth[p[1]].length);
          rotVert2(a);
          updateGrid();
-         if (b === 0) {
+         if (b === 0n) {
             p[1] = mod(p[1] + 1, labyrinth.length);
          }
          break;
